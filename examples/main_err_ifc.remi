@@ -1,0 +1,25 @@
+@client const MSG = "...loading";
+@sset let name;
+
+@server const f1 = () => await getNameFromDB();
+@server const f2 = () => {
+	const res = await f1();
+  name = res.name;
+}();
+
+@client const info = expensiveClientComputation(name);
+
+<render>
+	<h1>
+		My component!
+	</h1>
+	<p>
+		{MSG until name}
+	</p>
+	<p>
+		{MSG until info}
+	</p>
+  <button on:click={f2()}>
+		Refresh
+	</button>
+</render>

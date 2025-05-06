@@ -1,0 +1,22 @@
+@client let flag = true;
+
+@client let name;
+@server const nameFetch = () => {
+    @sset const res = await getNameFromDB();
+       name = res;
+}();
+
+@client let age;
+@server ageFetch = () => {
+    @sset const res = await getAgeFromDB();
+    age = res;
+}();
+
+<render>
+        (flag ? <p>{"" until name}</p>
+        : <p>{age}</p>
+        )
+        <button on:click={() => flag = !flag}>
+            Toggle Flag
+        </button>
+</render>
